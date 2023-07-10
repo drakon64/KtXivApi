@@ -16,7 +16,7 @@ repositories {
     mavenCentral()
 }
 
-val jvmToolchain = 11
+val jvmToolchain = 17
 
 kotlin {
     jvm {
