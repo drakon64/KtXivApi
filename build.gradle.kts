@@ -68,41 +68,6 @@ val sourcesJar by tasks.registering(Jar::class) {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            artifact(javadocJar.get())
-            artifact(htmlJar.get())
-            artifact(sourcesJar.get())
-
-            from(components["java"])
-
-            pom {
-                name.set("ktlodestone")
-                description.set("Kotlin/JVM library for XIVAPI")
-                url.set("https://github.com/drakon64/KtXivApi")
-
-                licenses {
-                    license {
-                        name.set("MIT")
-                        url.set("https://opensource.org/license/MIT/")
-                    }
-                }
-
-                developers {
-                    developer {
-                        id.set("drakon64")
-                        name.set("Adam Chance")
-                        email.set("6444703+drakon64@users.noreply.github.com")
-                    }
-                }
-
-                scm {
-                    url.set("https://github.com/drakon64/KtXivApi")
-                }
-            }
-        }
-    }
-
     repositories {
         maven {
             name = "GitHubPackages"
