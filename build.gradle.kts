@@ -16,11 +16,11 @@ repositories {
     mavenCentral()
 }
 
+val jvmToolchain = 11
+
 kotlin {
     jvm {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
-        }
+        jvmToolchain(jvmToolchain)
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
@@ -29,6 +29,7 @@ kotlin {
 
     js(IR) {
         nodejs()
+        useCommonJs()
     }
 
     sourceSets {
@@ -97,7 +98,7 @@ tasks.dokkaHtml.configure {
 
     dokkaSourceSets {
         configureEach {
-            jdkVersion.set(11)
+            jdkVersion.set(jvmToolchain)
         }
     }
 }

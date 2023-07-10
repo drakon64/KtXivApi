@@ -1,1 +1,1 @@
-rootProject.name = "KtXivApi"
+rootProject.name = "ktxivapi"
