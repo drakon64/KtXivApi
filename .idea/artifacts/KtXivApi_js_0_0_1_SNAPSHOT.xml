@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="KtXivApi-js-0.0.1-SNAPSHOT">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="KtXivApi-js-0.0.1-SNAPSHOT.jar">
+      <element id="module-output" name="KtXivApi.jsMain" />
+    </root>
+  </artifact>
+</component>
