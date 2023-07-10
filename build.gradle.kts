@@ -1,7 +1,12 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
     kotlin("multiplatform") version "1.9.0"
 
     kotlin("plugin.serialization") version "1.9.0"
+
+    id("org.jetbrains.dokka") version "1.8.10"
+    id("maven-publish")
 }
 
 group = "cloud.drakon"
@@ -59,5 +64,40 @@ kotlin {
             }
         }
         val jsTest by getting
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/drakon64/KtXivApi")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
+    }
+}
+
+val dokkaHtml by tasks.getting(DokkaTask::class)
+val htmlJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+    dependsOn(tasks.dokkaHtml)
+    archiveClassifier.set("html-docs")
+    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
+}
+val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
+    dependsOn(tasks.dokkaJavadoc)
+    archiveClassifier.set("javadoc")
+    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
+}
+
+tasks.dokkaHtml.configure {
+    outputDirectory.set(buildDir.resolve("dokka"))
+
+    dokkaSourceSets {
+        configureEach {
+            jdkVersion.set(11)
+        }
     }
 }
