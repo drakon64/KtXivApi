@@ -1,7 +1,6 @@
 package cloud.drakon.ktxivapi
 
 import cloud.drakon.ktxivapi.content.ContentSearch
-import cloud.drakon.ktxivapi.search.Indexes
 import cloud.drakon.ktxivapi.search.Search
 import cloud.drakon.ktxivapi.search.SortOrder
 import cloud.drakon.ktxivapi.search.StringAlgo
@@ -16,7 +15,7 @@ expect val ktorClient: HttpClient
 object KtXivApi {
     suspend fun search(
         string: String,
-        indexes: Array<Indexes>? = null,
+        indexes: List<String>? = null,
         stringAlgo: StringAlgo? = null,
         stringColumn: String? = null,
         page: Int? = null,
@@ -30,7 +29,7 @@ object KtXivApi {
 
                 if (indexes != null) {
                     for (i in indexes) {
-                        parameters.append("indexes", i.name)
+                        parameters.append("indexes", i)
                     }
                 }
                 if (stringAlgo != null) {
