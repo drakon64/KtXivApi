@@ -39,6 +39,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           arguments: publish
+      - name: Dokka
+        uses: gradle/gradle-build-action@v2.4.2
+        with:
+          arguments: dokkaHtml
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v1.0.4
         with:
