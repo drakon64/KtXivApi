@@ -2,7 +2,6 @@ package cloud.drakon.ktxivapi
 
 import cloud.drakon.ktxivapi.common.Language
 import cloud.drakon.ktxivapi.content.ContentSearch
-import cloud.drakon.ktxivapi.search.Search
 import cloud.drakon.ktxivapi.search.SortOrder
 import cloud.drakon.ktxivapi.search.StringAlgo
 import io.ktor.client.HttpClient
@@ -27,7 +26,7 @@ object KtXivApi {
         pretty: Boolean? = null,
         snakeCase: Boolean? = null,
         columns: List<String>? = null
-    ): Search = coroutineScope {
+    ): JsonObject = coroutineScope {
         return@coroutineScope ktorClient.get("search") {
             url {
                 parameters.append("string", string)
