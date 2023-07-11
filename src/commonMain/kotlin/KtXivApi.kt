@@ -54,6 +54,8 @@ object KtXivApi {
                 if (limit != null) {
                     parameters.append("limit", limit.toString())
                 }
+
+                // Common Features
                 if (language != null) {
                     parameters.append("language", language.name)
                 }
@@ -70,14 +72,39 @@ object KtXivApi {
         }.body()
     }
 
-    suspend fun getContent(): List<String> = coroutineScope {
-        return@coroutineScope ktorClient.get("content").body()
+    suspend fun getContent(
+        language: Language? = null,
+        pretty: Boolean? = null,
+        snakeCase: Boolean? = null,
+        columns: List<String>? = null
+    ): List<String> = coroutineScope {
+        return@coroutineScope ktorClient.get("content") {
+            url {
+                // Common Features
+                if (language != null) {
+                    parameters.append("language", language.name)
+                }
+                if (pretty == true) {
+                    parameters.append("pretty", "1")
+                }
+                if (snakeCase == true) {
+                    parameters.append("snake_case", "1")
+                }
+                if (!columns.isNullOrEmpty()) {
+                    parameters.append("columns", columns.joinToString(","))
+                }
+            }
+        }.body()
     }
 
     suspend fun getContentName(
         content: String,
         limit: Short? = null,
-        ids: List<Int>? = null
+        ids: List<Int>? = null,
+        language: Language? = null,
+        pretty: Boolean? = null,
+        snakeCase: Boolean? = null,
+        columns: List<String>? = null
     ): ContentSearch = coroutineScope {
         return@coroutineScope ktorClient.get(content) {
             url {
@@ -87,19 +114,97 @@ object KtXivApi {
                 if (ids != null) {
                     parameters.append("limit", ids.joinToString(","))
                 }
+
+                // Common Features
+                if (language != null) {
+                    parameters.append("language", language.name)
+                }
+                if (pretty == true) {
+                    parameters.append("pretty", "1")
+                }
+                if (snakeCase == true) {
+                    parameters.append("snake_case", "1")
+                }
+                if (!columns.isNullOrEmpty()) {
+                    parameters.append("columns", columns.joinToString(","))
+                }
             }
         }.body()
     }
 
-    suspend fun getContentId(content: String, id: Int): JsonObject = coroutineScope {
-        return@coroutineScope ktorClient.get("${content}/${id}").body()
+    suspend fun getContentId(
+        content: String, id: Int,
+        language: Language? = null,
+        pretty: Boolean? = null,
+        snakeCase: Boolean? = null,
+        columns: List<String>? = null
+    ): JsonObject = coroutineScope {
+        return@coroutineScope ktorClient.get("${content}/${id}") {
+            url {
+                // Common Features
+                if (language != null) {
+                    parameters.append("language", language.name)
+                }
+                if (pretty == true) {
+                    parameters.append("pretty", "1")
+                }
+                if (snakeCase == true) {
+                    parameters.append("snake_case", "1")
+                }
+                if (!columns.isNullOrEmpty()) {
+                    parameters.append("columns", columns.joinToString(","))
+                }
+            }
+        }.body()
     }
 
-    suspend fun getServers(): List<String> = coroutineScope {
-        return@coroutineScope ktorClient.get("servers").body()
+    suspend fun getServers(
+        language: Language? = null,
+        pretty: Boolean? = null,
+        snakeCase: Boolean? = null,
+        columns: List<String>? = null
+    ): List<String> = coroutineScope {
+        return@coroutineScope ktorClient.get("servers") {
+            url {
+                // Common Features
+                if (language != null) {
+                    parameters.append("language", language.name)
+                }
+                if (pretty == true) {
+                    parameters.append("pretty", "1")
+                }
+                if (snakeCase == true) {
+                    parameters.append("snake_case", "1")
+                }
+                if (!columns.isNullOrEmpty()) {
+                    parameters.append("columns", columns.joinToString(","))
+                }
+            }
+        }.body()
     }
 
-    suspend fun getServersByDc(): Map<String, List<String>> = coroutineScope {
-        return@coroutineScope ktorClient.get("servers/dc").body()
+    suspend fun getServersByDc(
+        language: Language? = null,
+        pretty: Boolean? = null,
+        snakeCase: Boolean? = null,
+        columns: List<String>? = null
+    ): Map<String, List<String>> = coroutineScope {
+        return@coroutineScope ktorClient.get("servers/dc") {
+            url {
+                // Common Features
+                if (language != null) {
+                    parameters.append("language", language.name)
+                }
+                if (pretty == true) {
+                    parameters.append("pretty", "1")
+                }
+                if (snakeCase == true) {
+                    parameters.append("snake_case", "1")
+                }
+                if (!columns.isNullOrEmpty()) {
+                    parameters.append("columns", columns.joinToString(","))
+                }
+            }
+        }.body()
     }
 }
