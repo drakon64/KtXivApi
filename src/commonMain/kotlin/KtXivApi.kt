@@ -1,5 +1,6 @@
 package cloud.drakon.ktxivapi
 
+import cloud.drakon.ktxivapi.common.Language
 import cloud.drakon.ktxivapi.content.ContentSearch
 import cloud.drakon.ktxivapi.search.Search
 import cloud.drakon.ktxivapi.search.SortOrder
@@ -21,7 +22,11 @@ object KtXivApi {
         page: Int? = null,
         sortField: String? = null,
         sortOrder: SortOrder? = null,
-        limit: Byte? = null
+        limit: Byte? = null,
+        language: Language? = null,
+        pretty: Boolean? = null,
+        snakeCase: Boolean? = null,
+        columns: List<String>? = null
     ): Search = coroutineScope {
         return@coroutineScope ktorClient.get("search") {
             url {
@@ -49,6 +54,18 @@ object KtXivApi {
                 }
                 if (limit != null) {
                     parameters.append("limit", limit.toString())
+                }
+                if (language != null) {
+                    parameters.append("language", language.name)
+                }
+                if (pretty == true) {
+                    parameters.append("pretty", "1")
+                }
+                if (snakeCase == true) {
+                    parameters.append("snake_case", "1")
+                }
+                if (!columns.isNullOrEmpty()) {
+                    parameters.append("columns", columns.joinToString(","))
                 }
             }
         }.body()
